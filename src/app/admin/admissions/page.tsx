@@ -110,7 +110,7 @@ export default function AdmissionsPage() {
                                         </td>
                                         <td>{app.parentFullName}</td>
                                         <td>
-                                            <span className={styles.badge}>Year {app.schoolYear}</span>
+                                            <span className={styles.badge}>{app.schoolYear}</span>
                                         </td>
                                         <td>{app.gender}</td>
                                         <td>{new Date(app.createdAt).toLocaleDateString()}</td>
