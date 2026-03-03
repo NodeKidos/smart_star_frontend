@@ -64,7 +64,7 @@ export default function Footer() {
                         <div className={styles.contactItem}>
                             <Mail size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
-                                <a href="mailto:info@smartstar.co.uk">info@smartstar.co.uk</a>
+                                <a href="mailto:info@smartstar.uk">info@smartstar.uk</a>
                             </span>
                         </div>
                         <div className={styles.contactItem}>

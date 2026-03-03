@@ -19,7 +19,7 @@ export default function ContactUsPage() {
 
     const INFO_CARDS = [
         { icon: MapPin, title: 'Visit Us', text: 'Harrow, London\nUnited Kingdom' },
-        { icon: Mail, title: 'Email Us', text: 'info@smartstar.co.uk', href: 'mailto:info@smartstar.co.uk' },
+        { icon: Mail, title: 'Email Us', text: 'info@smartstar.uk', href: 'mailto:info@smartstar.uk' },
         { icon: Phone, title: 'Call Us', text: '+44 XXX XXXX XXX', href: 'tel:+44XXXXXXXXXX' },
         { icon: Clock, title: 'Opening Hours', text: 'Mon - Sat: 9:00 AM - 6:00 PM' },
     ];
