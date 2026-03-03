@@ -84,6 +84,28 @@
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.logoutBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(244, 63, 94, 0.1);
+    color: #f43f5e;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 0.5rem;
+}
+
+.logoutBtn:hover {
+    background: #f43f5e;
+    color: white;
+}
+
 .backLink {
     display: flex;
     align-items: center;

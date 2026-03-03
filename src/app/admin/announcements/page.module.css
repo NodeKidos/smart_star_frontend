@@ -185,23 +185,54 @@
     color: #10b981;
 }
 
-.deleteBtn {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: #fff1f2;
-    color: #f43f5e;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
 .deleteBtn:hover {
     background: #f43f5e;
     color: white;
+}
+
+.editInput {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #F5A623;
+    font-size: 1rem;
+    outline: none;
+}
+
+.saveBtn {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background: #f1f5f9;
+    color: #64748b;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.editIconBtn {
+    color: #1B2A4A;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.editIconBtn:hover {
+    opacity: 1;
 }
 
 @media (max-width: 768px) {

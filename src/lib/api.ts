@@ -25,6 +25,51 @@ export interface Announcement {
     createdAt: string;
 }
 
+export interface User {
+    id: string;
+    username: string;
+    createdAt: string;
+}
+
+export interface GalleryItem {
+    id: string;
+    title: string;
+    imageUrl: string;
+    category: string;
+    createdAt: string;
+}
+
+/* ── Auth Helper ── */
+
+function getAuthHeaders() {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
+    return {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+    };
+}
+
+/* ── Public API ── */
+
+export async function login(username: string, password: string): Promise<{ access_token: string; user: User }> {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Invalid credentials');
+    }
+
+    const data = await response.json();
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('admin_token', data.access_token);
+        localStorage.setItem('admin_user', JSON.stringify(data.user));
+    }
+    return data;
+}
+
 export async function submitApplication(
     data: Omit<Application, 'id' | 'fee' | 'createdAt'>
 ): Promise<{ message: string; application: Application }> {
@@ -55,10 +100,23 @@ export async function fetchAnnouncements(): Promise<Announcement[]> {
     }
 }
 
-/* ── Admin API Methods ── */
+export async function fetchGallery(): Promise<GalleryItem[]> {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/gallery`, {
+            next: { revalidate: 300 },
+        });
+        if (!response.ok) return [];
+        return response.json();
+    } catch {
+        return [];
+    }
+}
+
+/* ── Admin API Methods (Protected) ── */
 
 export async function fetchAllApplications(): Promise<Application[]> {
     const response = await fetch(`${API_BASE_URL}/api/applications`, {
+        headers: getAuthHeaders(),
         cache: 'no-store',
     });
     if (!response.ok) return [];
@@ -68,12 +126,14 @@ export async function fetchAllApplications(): Promise<Application[]> {
 export async function deleteApplication(id: string): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/api/applications/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(),
     });
     if (!response.ok) throw new Error('Failed to delete application');
 }
 
 export async function fetchAllAnnouncements(): Promise<Announcement[]> {
     const response = await fetch(`${API_BASE_URL}/api/announcements/all`, {
+        headers: getAuthHeaders(),
         cache: 'no-store',
     });
     if (!response.ok) return [];
@@ -83,16 +143,27 @@ export async function fetchAllAnnouncements(): Promise<Announcement[]> {
 export async function createAnnouncement(message: string): Promise<Announcement> {
     const response = await fetch(`${API_BASE_URL}/api/announcements`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ message }),
     });
     if (!response.ok) throw new Error('Failed to create announcement');
     return response.json();
 }
 
+export async function updateAnnouncement(id: string, message: string): Promise<Announcement> {
+    const res = await fetch(`${API_BASE_URL}/api/announcements/${id}`, {
+        method: 'PATCH',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ message }),
+    });
+    if (!res.ok) throw new Error('Update failed');
+    return res.json();
+}
+
 export async function toggleAnnouncement(id: string): Promise<Announcement> {
     const response = await fetch(`${API_BASE_URL}/api/announcements/${id}/toggle`, {
         method: 'PATCH',
+        headers: getAuthHeaders(),
     });
     if (!response.ok) throw new Error('Failed to toggle announcement');
     return response.json();
@@ -101,6 +172,66 @@ export async function toggleAnnouncement(id: string): Promise<Announcement> {
 export async function deleteAnnouncement(id: string): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/api/announcements/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(),
     });
     if (!response.ok) throw new Error('Failed to delete announcement');
+}
+
+/* ── Gallery Admin ── */
+
+export async function createGalleryItem(data: { title: string; imageUrl: string; category: string }): Promise<GalleryItem> {
+    const response = await fetch(`${API_BASE_URL}/api/gallery`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Failed to upload image info');
+    return response.json();
+}
+
+export async function updateGalleryItem(id: string, data: Partial<GalleryItem>): Promise<GalleryItem> {
+    const res = await fetch(`${API_BASE_URL}/api/gallery/${id}`, {
+        method: 'PATCH',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error('Update failed');
+    return res.json();
+}
+
+export async function deleteGalleryItem(id: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/api/gallery/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Failed to delete image');
+}
+
+/* ── Users Admin ── */
+
+export async function fetchAllUsers(): Promise<User[]> {
+    const response = await fetch(`${API_BASE_URL}/api/users`, {
+        headers: getAuthHeaders(),
+        cache: 'no-store',
+    });
+    if (!response.ok) return [];
+    return response.json();
+}
+
+export async function createUser(username: string, password: string): Promise<User> {
+    const response = await fetch(`${API_BASE_URL}/api/users`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ username, password }),
+    });
+    if (!response.ok) throw new Error('Failed to create user');
+    return response.json();
+}
+
+export async function deleteUser(id: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/api/users/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+    });
+    if (!response.ok) throw new Error('Failed to delete user');
 }

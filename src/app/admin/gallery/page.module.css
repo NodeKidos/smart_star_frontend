@@ -1,0 +1,231 @@
+.container {
+    padding: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.iconCircle {
+    width: 50px;
+    height: 50px;
+    background: #fff8eb;
+    color: #F5A623;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerLeft h1 {
+    font-size: 1.8rem;
+    color: #1B2A4A;
+    margin-bottom: 0.1rem;
+}
+
+.headerLeft p {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.addBtn {
+    background: #1B2A4A;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.addBtn:hover {
+    background: #F5A623;
+    color: #1B2A4A;
+    transform: translateY(-2px);
+}
+
+.addForm {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.addForm h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #1B2A4A;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 1fr 1fr;
+    gap: 1.5rem;
+    align-items: flex-end;
+}
+
+.inputGroup label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.inputGroup input,
+.inputGroup select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    outline: none;
+}
+
+.submitBtn {
+    background: #F5A623;
+    color: #1B2A4A;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.galleryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.itemCard {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s;
+}
+
+.itemCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.imgWrapper {
+    position: relative;
+    height: 200px;
+}
+
+.imgWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.categoryBadge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(27, 42, 74, 0.9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.cardFooter {
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.itemInfo h3 {
+    font-size: 1rem;
+    color: #1B2A4A;
+    margin-bottom: 0.2rem;
+}
+
+.itemInfo span {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.cardActions {
+    display: flex;
+    gap: 12px;
+}
+
+.actionBtn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.editBtn {
+    background: #f0f4ff;
+    color: #4f46e5;
+}
+
+.editBtn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+.deleteBtn {
+    background: #fff1f2;
+    color: #f43f5e;
+}
+
+.deleteBtn:hover {
+    background: #f43f5e;
+    color: white;
+}
+
+@media (max-width: 1200px) {
+    .formGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+}

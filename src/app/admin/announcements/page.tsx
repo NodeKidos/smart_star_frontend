@@ -9,7 +9,10 @@ import {
     Megaphone,
     AlertCircle,
     CheckCircle2,
-    Send
+    Send,
+    Edit2,
+    X as CloseIcon,
+    Save
 } from 'lucide-react';
 import AdminLayout from '@/components/AdminLayout';
 import {
@@ -17,6 +20,7 @@ import {
     createAnnouncement,
     toggleAnnouncement,
     deleteAnnouncement,
+    updateAnnouncement,
     Announcement
 } from '@/lib/api';
 import styles from './page.module.css';
@@ -26,6 +30,8 @@ export default function AnnouncementsPage() {
     const [loading, setLoading] = useState(true);
     const [newMessage, setNewMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editValue, setEditValue] = useState('');
 
     useEffect(() => {
         loadAnnouncements();
@@ -57,6 +63,24 @@ export default function AnnouncementsPage() {
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    const handleUpdate = async (id: string) => {
+        if (!editValue.trim()) return;
+        try {
+            await updateAnnouncement(id, editValue);
+            setAnnouncements(announcements.map(ann =>
+                ann.id === id ? { ...ann, message: editValue } : ann
+            ));
+            setEditingId(null);
+        } catch (error) {
+            alert('Failed to update announcement');
+        }
+    };
+
+    const startEditing = (ann: Announcement) => {
+        setEditingId(ann.id);
+        setEditValue(ann.message);
     };
 
     const handleToggle = async (id: string) => {
@@ -134,10 +158,30 @@ export default function AnnouncementsPage() {
                                         <Megaphone size={20} />
                                     </div>
                                     <div className={styles.annInfo}>
-                                        <p className={styles.annMessage}>{ann.message}</p>
-                                        <span className={styles.annDate}>
-                                            Created on {new Date(ann.createdAt).toLocaleDateString()}
-                                        </span>
+                                        {editingId === ann.id ? (
+                                            <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
+                                                <input
+                                                    className={styles.editInput}
+                                                    value={editValue}
+                                                    onChange={(e) => setEditValue(e.target.value)}
+                                                    autoFocus
+                                                />
+                                                <button className={styles.saveBtn} onClick={() => handleUpdate(ann.id)}>Save</button>
+                                                <button className={styles.cancelBtn} onClick={() => setEditingId(null)}>Cancel</button>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                    <p className={styles.annMessage}>{ann.message}</p>
+                                                    <button className={styles.editIconBtn} onClick={() => startEditing(ann)}>
+                                                        <Edit2 size={16} />
+                                                    </button>
+                                                </div>
+                                                <span className={styles.annDate}>
+                                                    Created on {new Date(ann.createdAt).toLocaleDateString()}
+                                                </span>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                                 <div className={styles.annActions}>

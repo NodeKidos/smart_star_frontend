@@ -1,14 +1,18 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
     Users,
     Megaphone,
     LayoutDashboard,
     ArrowLeft,
-    LogOut,
-    GraduationCap
+    Image as ImageIcon,
+    GraduationCap,
+    LogOut
 } from 'lucide-react';
+import Header from './Header';
 import styles from './AdminLayout.module.css';
 
 interface AdminLayoutProps {
@@ -17,6 +21,23 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
     const pathname = usePathname();
+    const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    useEffect(() => {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
+        if (!token && pathname !== '/admin/login') {
+            router.push('/admin/login');
+        } else {
+            setIsAuthorized(true);
+        }
+    }, [pathname, router]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
+        router.push('/admin/login');
+    };
 
     const navItems = [
         {
@@ -30,8 +51,34 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             icon: Megaphone,
             href: '/admin/announcements',
             active: pathname === '/admin/announcements'
+        },
+        {
+            label: 'Gallery',
+            icon: ImageIcon,
+            href: '/admin/gallery',
+            active: pathname === '/admin/gallery'
+        },
+        {
+            label: 'Users',
+            icon: Users,
+            href: '/admin/users',
+            active: pathname === '/admin/users'
         }
     ];
+
+    if (!isAuthorized && pathname !== '/admin/login') {
+        return <div style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#1B2A4A',
+            color: 'white',
+            fontFamily: 'Inter, sans-serif'
+        }}>
+            Initializing secure session...
+        </div>;
+    }
 
     return (
         <div className={styles.adminContainer}>
@@ -48,9 +95,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 </div>
 
                 <nav className={styles.nav}>
-                    {navItems.map((item) => (
+                    {navItems.map((item, index) => (
                         <Link
-                            key={item.href}
+                            key={item.href || index}
                             href={item.href}
                             className={`${styles.navLink} ${item.active ? styles.active : ''}`}
                         >
@@ -61,6 +108,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 </nav>
 
                 <div className={styles.sidebarFooter}>
+                    <button onClick={handleLogout} className={styles.logoutBtn}>
+                        <LogOut size={18} />
+                        <span>Logout</span>
+                    </button>
                     <Link href="/" className={styles.backLink}>
                         <ArrowLeft size={18} />
                         <span>Back to Site</span>
@@ -70,6 +121,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
             {/* Main Content */}
             <main className={styles.mainContent}>
+                {/* Announcement Ticker in Admin */}
+                <Header isAdmin={true} />
+
                 <header className={styles.topBar}>
                     <div className={styles.breadcrumb}>
                         <LayoutDashboard size={18} />

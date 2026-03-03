@@ -1,9 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { MapPin, Mail, Phone, Clock } from 'lucide-react';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+    const pathname = usePathname();
+
+    if (pathname?.startsWith('/admin')) {
+        return null;
+    }
     const currentYear = new Date().getFullYear();
 
     return (
