@@ -4,13 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Users, TrendingUp, Clock, Award } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/lib/useScrollAnimation';
+import Counter from '@/components/Counter';
 import styles from './Hero.module.css';
 
 const STATS = [
-    { icon: Users, number: '500+', label: 'Students Enrolled' },
-    { icon: TrendingUp, number: '95%', label: 'Pass Rate' },
-    { icon: Clock, number: '10+', label: 'Years Experience' },
-    { icon: Award, number: '50+', label: 'Expert Tutors' },
+    { icon: Users, target: 500, suffix: '+', label: 'Students Enrolled' },
+    { icon: TrendingUp, target: 95, suffix: '%', label: 'Pass Rate' },
+    { icon: Clock, target: 10, suffix: '+', label: 'Years Experience' },
+    { icon: Award, target: 50, suffix: '+', label: 'Expert Tutors' },
 ];
 
 export default function Hero() {
@@ -76,7 +77,9 @@ export default function Hero() {
                             className={`${styles.statItem} ${staggered[i] ? styles.statVisible : ''}`}
                         >
                             <stat.icon size={28} className={styles.statIcon} strokeWidth={1.5} />
-                            <div className={styles.statNumber}>{stat.number}</div>
+                            <div className={styles.statNumber}>
+                                <Counter target={stat.target} suffix={stat.suffix} visible={statsVisible} />
+                            </div>
                             <div className={styles.statLabel}>{stat.label}</div>
                         </div>
                     ))}
