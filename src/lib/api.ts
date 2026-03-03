@@ -54,3 +54,53 @@ export async function fetchAnnouncements(): Promise<Announcement[]> {
         return [];
     }
 }
+
+/* ── Admin API Methods ── */
+
+export async function fetchAllApplications(): Promise<Application[]> {
+    const response = await fetch(`${API_BASE_URL}/api/applications`, {
+        cache: 'no-store',
+    });
+    if (!response.ok) return [];
+    return response.json();
+}
+
+export async function deleteApplication(id: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/api/applications/${id}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('Failed to delete application');
+}
+
+export async function fetchAllAnnouncements(): Promise<Announcement[]> {
+    const response = await fetch(`${API_BASE_URL}/api/announcements/all`, {
+        cache: 'no-store',
+    });
+    if (!response.ok) return [];
+    return response.json();
+}
+
+export async function createAnnouncement(message: string): Promise<Announcement> {
+    const response = await fetch(`${API_BASE_URL}/api/announcements`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+    });
+    if (!response.ok) throw new Error('Failed to create announcement');
+    return response.json();
+}
+
+export async function toggleAnnouncement(id: string): Promise<Announcement> {
+    const response = await fetch(`${API_BASE_URL}/api/announcements/${id}/toggle`, {
+        method: 'PATCH',
+    });
+    if (!response.ok) throw new Error('Failed to toggle announcement');
+    return response.json();
+}
+
+export async function deleteAnnouncement(id: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/api/announcements/${id}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('Failed to delete announcement');
+}
