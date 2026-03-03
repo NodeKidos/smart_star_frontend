@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export interface Application {
     id: string;
@@ -34,8 +34,9 @@ export interface User {
 export interface GalleryItem {
     id: string;
     title: string;
-    imageUrl: string;
+    imageUrls: string[];
     category: string;
+    eventDate?: string;
     createdAt: string;
 }
 
@@ -179,13 +180,16 @@ export async function deleteAnnouncement(id: string): Promise<void> {
 
 /* ── Gallery Admin ── */
 
-export async function createGalleryItem(data: { title: string; imageUrl: string; category: string }): Promise<GalleryItem> {
+export async function createGalleryItem(formData: FormData): Promise<GalleryItem> {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
     const response = await fetch(`${API_BASE_URL}/api/gallery`, {
         method: 'POST',
-        headers: getAuthHeaders(),
-        body: JSON.stringify(data),
+        headers: {
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
+        body: formData,
     });
-    if (!response.ok) throw new Error('Failed to upload image info');
+    if (!response.ok) throw new Error('Failed to upload image(s)');
     return response.json();
 }
 

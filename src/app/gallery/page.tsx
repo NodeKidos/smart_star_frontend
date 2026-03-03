@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { fetchGallery, GalleryItem } from '@/lib/api';
+import { fetchGallery, GalleryItem, API_BASE_URL } from '@/lib/api';
 import { ImageIcon, Calendar, Tag } from 'lucide-react';
 import styles from './Gallery.module.css';
 
@@ -9,6 +9,14 @@ export default function GalleryPage() {
     const [items, setItems] = useState<GalleryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('All');
+
+    const getImageUrl = (url: string | undefined) => {
+        if (!url) return '';
+        if (url.startsWith('/uploads')) {
+            return `${API_BASE_URL}${url}`;
+        }
+        return url;
+    };
 
     useEffect(() => {
         async function load() {
@@ -21,6 +29,21 @@ export default function GalleryPage() {
 
     const categories = ['All', ...new Set(items.map(i => i.category))];
     const filteredItems = filter === 'All' ? items : items.filter(i => i.category === filter);
+
+    // Flatten images so each one appears in the grid, safely handling legacy data
+    const displayItems = filteredItems.flatMap(item => {
+        const urls = (item.imageUrls && Array.isArray(item.imageUrls))
+            ? item.imageUrls.filter(u => u && u.trim() !== '')
+            : ((item as any).imageUrl ? [(item as any).imageUrl] : []);
+
+        if (urls.length === 0) return [];
+
+        return urls.map((url: string, idx: number) => ({
+            ...item,
+            id: `${item.id}-${idx}`,
+            displayUrl: url
+        }));
+    });
 
     return (
         <div className={styles.galleryPage}>
@@ -48,16 +71,16 @@ export default function GalleryPage() {
 
                     {loading ? (
                         <div className={styles.loader}>Exploring our archives...</div>
-                    ) : (
+                    ) : displayItems.length > 0 ? (
                         <div className={styles.grid}>
-                            {filteredItems.map((item, index) => (
+                            {displayItems.map((item, index) => (
                                 <div
                                     key={item.id}
                                     className={styles.card}
                                     style={{ animationDelay: `${index * 50}ms` }}
                                 >
                                     <div className={styles.imageArea}>
-                                        <img src={item.imageUrl} alt={item.title} loading="lazy" />
+                                        <img src={getImageUrl(item.displayUrl)} alt={item.title} loading="lazy" />
                                         <div className={styles.overlay}>
                                             <div className={styles.overlayContent}>
                                                 <Tag size={16} />
@@ -69,15 +92,13 @@ export default function GalleryPage() {
                                         <h3>{item.title}</h3>
                                         <div className={styles.meta}>
                                             <Calendar size={14} />
-                                            <span>{new Date(item.createdAt).getFullYear()}</span>
+                                            <span>{item.eventDate ? new Date(item.eventDate).toLocaleDateString() : new Date(item.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    )}
-
-                    {!loading && filteredItems.length === 0 && (
+                    ) : (
                         <div className={styles.empty}>
                             <ImageIcon size={48} />
                             <p>Our gallery is currently being curated. Check back soon!</p>
