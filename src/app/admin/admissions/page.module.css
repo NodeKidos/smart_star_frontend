@@ -19,7 +19,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .title {
@@ -124,6 +124,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
 .badge {
@@ -222,6 +223,7 @@
     cursor: pointer;
     color: #94a3b8;
     transition: color 0.2s;
+    z-index: 2;
 }
 
 .closeBtn:hover {
@@ -247,6 +249,7 @@
     justify-content: center;
     font-size: 1.8rem;
     font-weight: 800;
+    flex-shrink: 0;
 }
 
 .modalInfo h2 {
@@ -303,8 +306,76 @@
 }
 
 @media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .title {
+        font-size: 1.4rem;
+    }
+
+    .searchBar {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .tableWrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table {
+        min-width: 550px;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .modalOverlay {
+        padding: 1rem;
+    }
+
+    .modal {
+        max-width: 95vw;
+        border-radius: 16px;
+    }
+
+    .modalHeader {
+        padding: 1.5rem;
+    }
+
+    .modalInfo h2 {
+        font-size: 1.2rem;
+    }
+
     .modalGrid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .modalFooter {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .loader,
+    .emptyState {
+        padding: 3rem 1.5rem;
     }
 }

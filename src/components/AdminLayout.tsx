@@ -10,7 +10,9 @@ import {
     ArrowLeft,
     Image as ImageIcon,
     GraduationCap,
-    LogOut
+    LogOut,
+    Menu,
+    X
 } from 'lucide-react';
 import Header from './Header';
 import styles from './AdminLayout.module.css';
@@ -23,6 +25,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const pathname = usePathname();
     const router = useRouter();
     const [isAuthorized, setIsAuthorized] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
@@ -32,6 +35,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             setIsAuthorized(true);
         }
     }, [pathname, router]);
+
+    // Close sidebar on route change (mobile)
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [pathname]);
 
     const handleLogout = () => {
         localStorage.removeItem('admin_token');
@@ -82,8 +90,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
     return (
         <div className={styles.adminContainer}>
+            {/* Mobile overlay */}
+            {sidebarOpen && (
+                <div
+                    className={styles.sidebarOverlay}
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className={styles.sidebar}>
+            <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
                 <div className={styles.sidebarHeader}>
                     <div className={styles.logo}>
                         <GraduationCap size={28} className={styles.logoIcon} />
@@ -125,6 +141,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Header isAdmin={true} />
 
                 <header className={styles.topBar}>
+                    <button
+                        className={styles.hamburgerBtn}
+                        onClick={() => setSidebarOpen(!sidebarOpen)}
+                        aria-label="Toggle sidebar"
+                    >
+                        {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
+                    </button>
                     <div className={styles.breadcrumb}>
                         <LayoutDashboard size={18} />
                         <span>/ Dashboard / {pathname.split('/').pop()?.charAt(0).toUpperCase()}{pathname.split('/').pop()?.slice(1)}</span>
