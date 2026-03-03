@@ -98,13 +98,16 @@ export default function AdminGalleryPage() {
         setUploading(true);
         try {
             if (editingId) {
-                // Update meta + possibly changed images list
-                await updateGalleryItem(editingId, {
-                    title,
-                    category,
-                    eventDate,
-                    imageUrls: editingImages
+                // Update meta + images + optional new files
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('category', category);
+                formData.append('eventDate', eventDate);
+                formData.append('imageUrls', JSON.stringify(editingImages));
+                selectedFiles.forEach(file => {
+                    formData.append('files', file);
                 });
+                await updateGalleryItem(editingId, formData);
             } else {
                 // Upload new images
                 const formData = new FormData();
@@ -235,9 +238,9 @@ export default function AdminGalleryPage() {
                                 </div>
                             )}
 
-                            {!editingId && (
+                            {(
                                 <div className={styles.uploadSection}>
-                                    <label className={styles.fieldLabel}>Select or Drag Images</label>
+                                    <label className={styles.fieldLabel}>{editingId ? 'Add More Images' : 'Select or Drag Images'}</label>
                                     <div
                                         className={`${styles.dragDropZone} ${dragActive ? styles.dragActive : ''}`}
                                         onDragEnter={handleDrag}

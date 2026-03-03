@@ -193,11 +193,14 @@ export async function createGalleryItem(formData: FormData): Promise<GalleryItem
     return response.json();
 }
 
-export async function updateGalleryItem(id: string, data: Partial<GalleryItem>): Promise<GalleryItem> {
+export async function updateGalleryItem(id: string, formData: FormData): Promise<GalleryItem> {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
     const res = await fetch(`${API_BASE_URL}/api/gallery/${id}`, {
         method: 'PATCH',
-        headers: getAuthHeaders(),
-        body: JSON.stringify(data),
+        headers: {
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
+        body: formData,
     });
     if (!res.ok) throw new Error('Update failed');
     return res.json();
