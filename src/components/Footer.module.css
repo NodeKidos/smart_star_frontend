@@ -135,16 +135,39 @@
 
 /* ── Bottom ── */
 .footerBottom {
-    text-align: center;
-    padding: 2rem;
+    padding: 2rem 0;
     color: rgba(255, 255, 255, 0.3);
     font-size: 0.82rem;
     letter-spacing: 0.3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footerCopyright {
+    line-height: 1.6;
+    text-align: left;
 }
 
 .footerBottom span {
     color: #F5A623;
     font-weight: 600;
+}
+
+.poweredBy {
+    font-weight: 500;
+}
+
+.poweredBy a {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    transition: color 250ms ease;
+    text-decoration: none;
+}
+
+.poweredBy a:hover {
+    color: #F5A623;
 }
 
 /* ── Responsive ── */
@@ -163,5 +186,15 @@
 
     .footer {
         padding-top: 3rem;
+    }
+
+    .footerBottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .footerCopyright {
+        text-align: center;
     }
 }

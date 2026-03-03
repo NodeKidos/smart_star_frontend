@@ -1,13 +1,16 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { MapPin, Mail, Phone, Clock, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Mail, Phone, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/lib/useScrollAnimation';
+import { sendContactMessage } from '@/lib/api';
 import styles from './page.module.css';
 
 export default function ContactUsPage() {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
     const [isSent, setIsSent] = useState(false);
+    const [isSending, setIsSending] = useState(false);
+    const [error, setError] = useState('');
 
     const [headerRef, headerVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
     const [infoRef, infoVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.15 });
@@ -26,9 +29,19 @@ export default function ContactUsPage() {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setIsSent(true);
+        setIsSending(true);
+        setError('');
+        try {
+            await sendContactMessage(formData);
+            setIsSent(true);
+            setFormData({ name: '', email: '', subject: '', message: '' });
+        } catch (err) {
+            setError('Failed to send message. Please try again later.');
+        } finally {
+            setIsSending(false);
+        }
     };
 
     return (
@@ -94,7 +107,6 @@ export default function ContactUsPage() {
                                     className="btn btn-primary"
                                     onClick={() => {
                                         setIsSent(false);
-                                        setFormData({ name: '', email: '', subject: '', message: '' });
                                     }}
                                 >
                                     Send Another
@@ -103,6 +115,12 @@ export default function ContactUsPage() {
                         ) : (
                             <form onSubmit={handleSubmit}>
                                 <h3>Send Us a Message</h3>
+                                {error && (
+                                    <div className={styles.errorMsg}>
+                                        <AlertCircle size={18} />
+                                        {error}
+                                    </div>
+                                )}
                                 <div className={styles.formGroup}>
                                     <label htmlFor="contact-name">Your Name</label>
                                     <input type="text" id="contact-name" name="name" placeholder="Full name" value={formData.name} onChange={handleChange} required />
@@ -119,9 +137,9 @@ export default function ContactUsPage() {
                                     <label htmlFor="contact-message">Message</label>
                                     <textarea id="contact-message" name="message" rows={5} placeholder="Type your message here..." value={formData.message} onChange={handleChange} required />
                                 </div>
-                                <button type="submit" className={styles.submitBtn}>
+                                <button type="submit" className={styles.submitBtn} disabled={isSending}>
                                     <Send size={18} />
-                                    Send Message
+                                    {isSending ? 'Sending...' : 'Send Message'}
                                 </button>
                             </form>
                         )}

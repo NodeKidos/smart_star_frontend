@@ -92,8 +92,13 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className={styles.footerBottom}>
-                    © {currentYear} <span>Smart Star</span>. All rights reserved.
-                    Nurturing bright futures, one student at a time.
+                    <div className={styles.footerCopyright}>
+                        © {currentYear} <span>Smart Star</span>. All rights reserved.
+                        Nurturing bright futures, one student at a time.
+                    </div>
+                    <div className={styles.poweredBy}>
+                        Powered by <a href="https://nodekidos.com/" target="_blank" rel="noopener noreferrer">NodeKidos</a>
+                    </div>
                 </div>
             </div>
         </footer>

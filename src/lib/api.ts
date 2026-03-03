@@ -214,6 +214,17 @@ export async function deleteGalleryItem(id: string): Promise<void> {
     if (!response.ok) throw new Error('Failed to delete image');
 }
 
+export async function sendContactMessage(data: { name: string; email: string; subject: string; message: string }): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Failed to send message');
+}
+
 /* ── Users Admin ── */
 
 export async function fetchAllUsers(): Promise<User[]> {
