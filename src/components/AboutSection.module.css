@@ -1,0 +1,292 @@
+.about {
+    padding: 7rem 0 6rem;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.aboutInner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.aboutGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+/* ── Visual Card ── */
+.aboutVisual {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.aboutVisual.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.aboutVisualCard {
+    position: relative;
+    background: linear-gradient(160deg, #1B2A4A, #0F1A30);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 380px;
+    overflow: hidden;
+}
+
+.visualAccent {
+    position: absolute;
+    top: -60%;
+    right: -30%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.visualIcon {
+    color: #F5A623;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 20px rgba(245, 166, 35, 0.3));
+}
+
+.visualText {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+}
+
+.visualBadge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(245, 166, 35, 0.15);
+    color: #FFD580;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: 1px solid rgba(245, 166, 35, 0.2);
+}
+
+/* ── Content ── */
+.aboutContent {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 700ms ease 200ms, transform 700ms ease 200ms;
+}
+
+.aboutContent.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sectionLabel {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #F5A623;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.75rem;
+}
+
+.sectionLabelCenter {
+    display: block;
+    text-align: center;
+}
+
+.sectionHeading {
+    font-size: 2.2rem;
+    color: #1B2A4A;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.aboutContent p {
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1.02rem;
+}
+
+/* ── Feature Items ── */
+.features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #f8f9fb;
+    border-radius: 14px;
+    border: 1px solid #eef1f5;
+    transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+.featureVisible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.featureItem:hover {
+    background: rgba(245, 166, 35, 0.06);
+    border-color: rgba(245, 166, 35, 0.2);
+    transform: translateX(6px);
+}
+
+.featureIconWrap {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.12), rgba(245, 166, 35, 0.04));
+    border-radius: 10px;
+    color: #F5A623;
+    flex-shrink: 0;
+}
+
+.featureText {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #2D3748;
+}
+
+/* ── Why Choose Us ── */
+.whyUs {
+    padding: 6rem 0 7rem;
+    background: #f8f9fb;
+}
+
+.whyUsInner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.whyUsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.whyUsCard {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 2.75rem 2rem;
+    text-align: center;
+    border: 1px solid #eef1f5;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 600ms ease, transform 600ms ease, box-shadow 400ms ease;
+}
+
+.cardVisible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.whyUsCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #F5A623, #FFD580);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.whyUsCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.whyUsCard:hover::before {
+    transform: scaleX(1);
+}
+
+.whyUsIconWrap {
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), rgba(245, 166, 35, 0.03));
+    border-radius: 20px;
+    color: #F5A623;
+    margin: 0 auto 1.5rem;
+    transition: all 400ms ease;
+}
+
+.whyUsCard:hover .whyUsIconWrap {
+    background: linear-gradient(135deg, #F5A623, #e09518);
+    color: #FFFFFF;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.25);
+}
+
+.whyUsCard h3 {
+    font-size: 1.2rem;
+    color: #1B2A4A;
+    margin-bottom: 0.85rem;
+}
+
+.whyUsCard p {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .aboutGrid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .whyUsGrid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .sectionHeading {
+        font-size: 1.75rem;
+    }
+}

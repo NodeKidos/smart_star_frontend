@@ -1,0 +1,160 @@
+.aboutPage {
+    min-height: 80vh;
+}
+
+.pageHeader {
+    background: linear-gradient(160deg, #1B2A4A, #0a1128);
+    padding: 5rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pageHeader::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #f8f9fb, transparent);
+}
+
+.headerContent {
+    position: relative;
+    z-index: 1;
+}
+
+.headerContent h1 {
+    font-size: 2.8rem;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.headerContent p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ── Mission Cards ── */
+.missionGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: -3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.missionCard {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef1f5;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 500ms ease, transform 500ms ease, box-shadow 400ms ease;
+}
+
+.cardVisible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.missionCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.missionIconWrap {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), rgba(245, 166, 35, 0.03));
+    border-radius: 18px;
+    color: #F5A623;
+    margin: 0 auto 1.5rem;
+    transition: all 400ms ease;
+}
+
+.missionCard:hover .missionIconWrap {
+    background: linear-gradient(135deg, #F5A623, #e09518);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.25);
+}
+
+.missionCard h3 {
+    font-size: 1.25rem;
+    color: #1B2A4A;
+    margin-bottom: 0.85rem;
+}
+
+.missionCard p {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* ── Story Section ── */
+.sectionLabel {
+    display: block;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #F5A623;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.75rem;
+}
+
+.storySection {
+    padding: 5rem 0 6rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.storyRevealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.storyContent {
+    max-width: 750px;
+    margin: 2rem auto 0;
+}
+
+.storyContent p {
+    color: #4A5568;
+    line-height: 1.85;
+    font-size: 1.02rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .missionGrid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -2rem;
+    }
+
+    .headerContent h1 {
+        font-size: 2rem;
+    }
+}
