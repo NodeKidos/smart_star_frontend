@@ -2,11 +2,25 @@
 
 import { useState, FormEvent } from 'react';
 import { MapPin, Mail, Phone, Clock, Send, CheckCircle } from 'lucide-react';
+import { useScrollAnimation, useStaggeredAnimation } from '@/lib/useScrollAnimation';
 import styles from './page.module.css';
 
 export default function ContactUsPage() {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
     const [isSent, setIsSent] = useState(false);
+
+    const [headerRef, headerVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
+    const [infoRef, infoVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.15 });
+    const [formRef, formVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.1 });
+
+    const INFO_CARDS = [
+        { icon: MapPin, title: 'Visit Us', text: 'Harrow, London\nUnited Kingdom' },
+        { icon: Mail, title: 'Email Us', text: 'info@smartstar.uk', href: 'mailto:info@smartstar.uk' },
+        { icon: Phone, title: 'Call Us', text: '+44 XXX XXXX XXX', href: 'tel:+44XXXXXXXXXX' },
+        { icon: Clock, title: 'Opening Hours', text: 'Mon - Sat: 9:00 AM - 6:00 PM' },
+    ];
+
+    const cardStagger = useStaggeredAnimation(INFO_CARDS.length, infoVisible, 120);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -17,16 +31,12 @@ export default function ContactUsPage() {
         setIsSent(true);
     };
 
-    const INFO_CARDS = [
-        { icon: MapPin, title: 'Visit Us', text: 'Harrow, London\nUnited Kingdom' },
-        { icon: Mail, title: 'Email Us', text: 'info@smartstar.uk', href: 'mailto:info@smartstar.uk' },
-        { icon: Phone, title: 'Call Us', text: '+44 XXX XXXX XXX', href: 'tel:+44XXXXXXXXXX' },
-        { icon: Clock, title: 'Opening Hours', text: 'Mon - Sat: 9:00 AM - 6:00 PM' },
-    ];
-
     return (
         <div className={styles.contactPage}>
-            <div className={styles.pageHeader}>
+            <div
+                className={`${styles.pageHeader} ${headerVisible ? styles.headerVisible : ''}`}
+                ref={headerRef}
+            >
                 <div className={styles.headerContent}>
                     <h1>Contact Us</h1>
                     <p>We&apos;d love to hear from you. Get in touch with Smart Star today.</p>
@@ -36,7 +46,10 @@ export default function ContactUsPage() {
             <div className={styles.container}>
                 <div className={styles.contactGrid}>
                     {/* Contact Info */}
-                    <div className={styles.contactInfo}>
+                    <div
+                        className={`${styles.contactInfo} ${infoVisible ? styles.infoVisible : ''}`}
+                        ref={infoRef}
+                    >
                         <h2>Get In Touch</h2>
                         <p className={styles.infoDesc}>
                             Have questions about admissions, courses, or exam schedules?
@@ -44,8 +57,11 @@ export default function ContactUsPage() {
                         </p>
 
                         <div className={styles.infoCards}>
-                            {INFO_CARDS.map((card) => (
-                                <div key={card.title} className={styles.infoCard}>
+                            {INFO_CARDS.map((card, i) => (
+                                <div
+                                    key={card.title}
+                                    className={`${styles.infoCard} ${cardStagger[i] ? styles.cardRevealed : ''}`}
+                                >
                                     <div className={styles.infoIconWrap}>
                                         <card.icon size={20} strokeWidth={1.8} />
                                     </div>
@@ -65,7 +81,10 @@ export default function ContactUsPage() {
                     </div>
 
                     {/* Contact Form */}
-                    <div className={styles.contactForm}>
+                    <div
+                        className={`${styles.contactForm} ${formVisible ? styles.formVisible : ''}`}
+                        ref={formRef}
+                    >
                         {isSent ? (
                             <div className={styles.successMsg}>
                                 <CheckCircle size={48} strokeWidth={1.5} className={styles.successIcon} />

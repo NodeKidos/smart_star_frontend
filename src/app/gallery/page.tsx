@@ -3,12 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { fetchGallery, GalleryItem, API_BASE_URL } from '@/lib/api';
 import { ImageIcon, Calendar, Tag } from 'lucide-react';
+import { useScrollAnimation } from '@/lib/useScrollAnimation';
 import styles from './Gallery.module.css';
 
 export default function GalleryPage() {
     const [items, setItems] = useState<GalleryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('All');
+
+    const [heroRef, heroVisible] = useScrollAnimation<HTMLElement>({ threshold: 0.2 });
+    const [filtersRef, filtersVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.3 });
+    const [gridRef, gridVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.05 });
 
     const getImageUrl = (url: string | undefined) => {
         if (!url) return '';
@@ -47,7 +52,10 @@ export default function GalleryPage() {
 
     return (
         <div className={styles.galleryPage}>
-            <section className={styles.hero}>
+            <section
+                className={`${styles.hero} ${heroVisible ? styles.heroVisible : ''}`}
+                ref={heroRef}
+            >
                 <div className={styles.container}>
                     <h1>Life at Smart Star</h1>
                     <p>Capturing moments of growth, celebration, and achievement</p>
@@ -57,7 +65,10 @@ export default function GalleryPage() {
             <section className={styles.content}>
                 <div className={styles.container}>
                     {/* Filters */}
-                    <div className={styles.filters}>
+                    <div
+                        className={`${styles.filters} ${filtersVisible ? styles.filtersVisible : ''}`}
+                        ref={filtersRef}
+                    >
                         {categories.map(cat => (
                             <button
                                 key={cat}
@@ -72,12 +83,15 @@ export default function GalleryPage() {
                     {loading ? (
                         <div className={styles.loader}>Exploring our archives...</div>
                     ) : displayItems.length > 0 ? (
-                        <div className={styles.grid}>
+                        <div
+                            className={`${styles.grid} ${gridVisible ? styles.gridVisible : ''}`}
+                            ref={gridRef}
+                        >
                             {displayItems.map((item, index) => (
                                 <div
                                     key={item.id}
                                     className={styles.card}
-                                    style={{ animationDelay: `${index * 50}ms` }}
+                                    style={{ animationDelay: `${index * 60}ms` }}
                                 >
                                     <div className={styles.imageArea}>
                                         <img src={getImageUrl(item.displayUrl)} alt={item.title} loading="lazy" />
