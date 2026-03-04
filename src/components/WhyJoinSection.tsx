@@ -39,7 +39,7 @@ export default function WhyJoinSection() {
 
                     {/* You can replace this image */}
                     <img 
-                        src="/competition-illustration.png" 
+                        src="/joinus.jpg" 
                         alt="Competition Illustration" 
                         className={styles.illustration}
                     />
