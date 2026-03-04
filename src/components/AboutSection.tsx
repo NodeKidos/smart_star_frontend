@@ -1,31 +1,35 @@
 'use client';
 
-import { BookOpen, Target, Users, Trophy, GraduationCap, BarChart3, Lightbulb, Star } from 'lucide-react';
+import { BookOpen, Target, Trophy, GraduationCap, BarChart3, Lightbulb, Star } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/lib/useScrollAnimation';
 import styles from './AboutSection.module.css';
 
 const FEATURES = [
     { icon: BookOpen, text: 'Expert Tutors' },
     { icon: Target, text: 'Proven Results' },
-    { icon: Users, text: 'Small Class Sizes' },
-    { icon: Trophy, text: 'Award Winning' },
+    { icon: Trophy, text: 'Small Class Sizes' },
 ];
 
-const WHY_US = [
+const EXAM_DETAILS = [
     {
-        icon: GraduationCap,
-        title: 'Qualified Teachers',
-        description: 'Our team of highly qualified and experienced educators are passionate about helping students succeed in their academic journey.',
+        icon: BookOpen,
+        title: 'One Combined Exam Paper',
+        description: 'Students will complete one special exam paper that includes both Maths and English questions.',
     },
     {
-        icon: BarChart3,
-        title: 'Structured Curriculum',
-        description: 'Our carefully designed curriculum aligns with national standards while incorporating innovative teaching approaches.',
+        icon: Target,
+        title: '15 Maths + 15 English Questions',
+        description: 'The exam consists of 15 Maths questions and 15 English questions to test both analytical and language skills.',
+    },
+    {
+        icon: Trophy,
+        title: '1 Hour Duration',
+        description: 'Students will complete the full paper within 1 hour, helping them develop strong time management skills.',
     },
     {
         icon: Lightbulb,
-        title: 'Individual Attention',
-        description: 'With small class sizes, every student receives personalised guidance and support tailored to their unique learning needs.',
+        title: 'Why This Exam?',
+        description: 'This exam builds confidence in academic abilities, strengthens problem-solving and English skills, develops time management, and reduces exam nerves from a young age.',
     },
 ];
 
@@ -34,8 +38,8 @@ export default function AboutSection() {
     const [featRef, featVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
     const featStagger = useStaggeredAnimation(FEATURES.length, featVisible, 120);
 
-    const [whyRef, whyVisible] = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
-    const whyStagger = useStaggeredAnimation(WHY_US.length, whyVisible, 180);
+    const [examRef, examVisible] = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
+    const examStagger = useStaggeredAnimation(EXAM_DETAILS.length, examVisible, 180);
 
     return (
         <>
@@ -59,16 +63,14 @@ export default function AboutSection() {
                             <p>
                                 Smart Star is a leading educational institute committed to providing
                                 high-quality learning experiences that empower students to achieve
-                                their academic goals. Our dedicated team of experienced educators
-                                creates a supportive and stimulating environment where every child
-                                can thrive.
+                                their academic goals.
                             </p>
                             <p>
-                                We believe that every child has the potential to be a star. Through
-                                our carefully designed curriculum, personalised attention, and
-                                innovative teaching methods, we help students build strong
-                                foundations for lifelong success.
+                                We believe that every child has the potential to shine. Through
+                                personalised attention and innovative teaching methods,
+                                we help students build strong foundations for lifelong success.
                             </p>
+
                             <div className={styles.features} ref={featRef}>
                                 {FEATURES.map((feat, i) => (
                                     <div
@@ -87,19 +89,24 @@ export default function AboutSection() {
                 </div>
             </section>
 
-            {/* Why Choose Us */}
-            <section className={styles.whyUs} ref={whyRef}>
+            {/* Combined Maths & English Exam Section */}
+            <section className={styles.whyUs} ref={examRef}>
                 <div className={styles.whyUsInner}>
-                    <span className={`${styles.sectionLabel} ${styles.sectionLabelCenter}`}>Why Smart Star</span>
-                    <h2 className="section-title">Why Choose Smart Star?</h2>
+                    <span className={`${styles.sectionLabel} ${styles.sectionLabelCenter}`}>
+                        Exam Details
+                    </span>
+
+                    <h2 className="section-title">📝 Combined Maths & English Exam</h2>
+
                     <p className="section-subtitle">
-                        We go beyond traditional teaching to ensure every student reaches their full potential
+                        A specially designed exam to strengthen both analytical and language skills
                     </p>
+
                     <div className={styles.whyUsGrid}>
-                        {WHY_US.map((item, i) => (
+                        {EXAM_DETAILS.map((item, i) => (
                             <div
                                 key={item.title}
-                                className={`${styles.whyUsCard} ${whyStagger[i] ? styles.cardVisible : ''}`}
+                                className={`${styles.whyUsCard} ${examStagger[i] ? styles.cardVisible : ''}`}
                             >
                                 <div className={styles.whyUsIconWrap}>
                                     <item.icon size={32} strokeWidth={1.5} />
