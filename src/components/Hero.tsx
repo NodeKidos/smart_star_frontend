@@ -37,7 +37,7 @@ export default function Hero() {
                             <span className={styles.heroTitleAccent}>Brightest Potential</span>
                         </h1>
                         <p className={styles.heroDescription}>
-                            Smart Star is a premier educational institute dedicated to nurturing
+                            Smart Star is a premier educational competition dedicated to nurturing
                             young minds with excellence, creativity, and confidence.
                             Give your child the head start they deserve.
                         </p>

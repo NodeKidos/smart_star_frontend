@@ -1,13 +1,13 @@
 'use client';
 
-import { BookOpen, Target, Trophy, GraduationCap, BarChart3, Lightbulb, Star } from 'lucide-react';
+import { BookOpen, Target, Trophy, Lightbulb, Star } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/lib/useScrollAnimation';
 import styles from './AboutSection.module.css';
 
 const FEATURES = [
-    { icon: BookOpen, text: 'Expert Tutors' },
-    { icon: Target, text: 'Proven Results' },
-    { icon: Trophy, text: 'Small Class Sizes' },
+    { icon: Star, text: 'Engaging Competitions' },
+    { icon: Target, text: 'Skill Development' },
+    { icon: Trophy, text: 'Awards & Recognition' },
 ];
 
 const EXAM_DETAILS = [
@@ -29,7 +29,8 @@ const EXAM_DETAILS = [
     {
         icon: Lightbulb,
         title: 'Why This Exam?',
-        description: 'This exam builds confidence in academic abilities, strengthens problem-solving and English skills, develops time management, and reduces exam nerves from a young age.',
+        description:
+            'This exam builds confidence in academic abilities, strengthens problem-solving and English skills, develops time management, and reduces exam nerves from a young age.',
     },
 ];
 
@@ -47,35 +48,51 @@ export default function AboutSection() {
             <section className={styles.about} id="about" ref={aboutRef}>
                 <div className={styles.aboutInner}>
                     <div className={styles.aboutGrid}>
+                        
+                        {/* Left Visual */}
                         <div className={`${styles.aboutVisual} ${aboutVisible ? styles.revealed : ''}`}>
                             <div className={styles.aboutVisualCard}>
                                 <div className={styles.visualAccent} aria-hidden="true" />
                                 <Star size={56} strokeWidth={1.2} className={styles.visualIcon} />
+
                                 <span className={styles.visualText}>
-                                    Empowering Students<br />Since Day One
+                                    Inspiring Young Minds <br /> to Shine
                                 </span>
-                                <div className={styles.visualBadge}>Est. 2014</div>
+
+                                <div className={styles.visualBadge}>Smart Star</div>
                             </div>
                         </div>
+
+                        {/* Right Content */}
                         <div className={`${styles.aboutContent} ${aboutVisible ? styles.revealed : ''}`}>
                             <span className={styles.sectionLabel}>About Us</span>
-                            <h2 className={styles.sectionHeading}>Shaping Future Leaders with Excellence</h2>
+
+                            <h2 className={styles.sectionHeading}>
+                                Inspiring Young Minds Through Competition
+                            </h2>
+
                             <p>
-                                Smart Star is a leading educational institute committed to providing
-                                high-quality learning experiences that empower students to achieve
-                                their academic goals.
-                            </p>
-                            <p>
-                                We believe that every child has the potential to shine. Through
-                                personalised attention and innovative teaching methods,
-                                we help students build strong foundations for lifelong success.
+                                Smart Star is an exciting online educational competition designed to
+                                inspire and motivate young learners aged 6–11. The competition
+                                encourages children to challenge themselves, explore their talents,
+                                and build confidence in their academic abilities.
                             </p>
 
+                            <p>
+                                We believe every child has the potential to shine. Through engaging
+                                competitions and meaningful recognition, Smart Star helps students
+                                strengthen their Maths and English skills while developing a love
+                                for learning from an early age.
+                            </p>
+
+                            {/* Features */}
                             <div className={styles.features} ref={featRef}>
                                 {FEATURES.map((feat, i) => (
                                     <div
                                         key={feat.text}
-                                        className={`${styles.featureItem} ${featStagger[i] ? styles.featureVisible : ''}`}
+                                        className={`${styles.featureItem} ${
+                                            featStagger[i] ? styles.featureVisible : ''
+                                        }`}
                                     >
                                         <div className={styles.featureIconWrap}>
                                             <feat.icon size={20} strokeWidth={2} />
@@ -106,11 +123,14 @@ export default function AboutSection() {
                         {EXAM_DETAILS.map((item, i) => (
                             <div
                                 key={item.title}
-                                className={`${styles.whyUsCard} ${examStagger[i] ? styles.cardVisible : ''}`}
+                                className={`${styles.whyUsCard} ${
+                                    examStagger[i] ? styles.cardVisible : ''
+                                }`}
                             >
                                 <div className={styles.whyUsIconWrap}>
                                     <item.icon size={32} strokeWidth={1.5} />
                                 </div>
+
                                 <h3>{item.title}</h3>
                                 <p>{item.description}</p>
                             </div>

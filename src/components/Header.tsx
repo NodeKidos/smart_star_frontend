@@ -76,7 +76,7 @@ export default function Header({ isAdmin = false }: { isAdmin?: boolean }) {
                                 />
                                 <div className={styles.logoText}>
                                     <span className={styles.logoTitle}>Smart Star</span>
-                                    <span className={styles.logoSubtitle}>Compatition</span>
+                                    <span className={styles.logoSubtitle}>Competition</span>
                                 </div>
                             </Link>
 
