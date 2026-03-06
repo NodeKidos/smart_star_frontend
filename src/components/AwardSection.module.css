@@ -120,7 +120,8 @@
 }
 /* Section spacing */
 .quoteSection {
-  padding: 5rem 0;
+  margin-top: 1.5rem; 
+  padding: 2rem 0;
   background: #ffffff;
 }
 

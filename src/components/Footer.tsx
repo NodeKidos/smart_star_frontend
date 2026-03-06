@@ -63,12 +63,12 @@ export default function Footer() {
                     {/* Contact Info */}
                     <div className={styles.footerSection}>
                         <h4>Contact Us</h4>
-                        <div className={styles.contactItem}>
+                        {/* <div className={styles.contactItem}>
                             <MapPin size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
                                 Harrow, London<br />United Kingdom
                             </span>
-                        </div>
+                        </div> */}
                         <div className={styles.contactItem}>
                             <Mail size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
@@ -78,7 +78,7 @@ export default function Footer() {
                         <div className={styles.contactItem}>
                             <Phone size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
-                                <a href="tel:+44XXXXXXXXXX">+44 XXX XXXX XXX</a>
+                                <a href="tel:+447438640391">+44 7438 640391</a>
                             </span>
                         </div>
                         <div className={styles.contactItem}>

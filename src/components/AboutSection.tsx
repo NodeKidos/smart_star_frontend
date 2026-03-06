@@ -72,7 +72,7 @@ export default function AboutSection() {
                             </h2>
 
                             <p>
-                                Smart Star is an exciting online educational competition designed to
+                                Smart Star is an exciting educational competition designed to
                                 inspire and motivate young learners aged 6–11. The competition
                                 encourages children to challenge themselves, explore their talents,
                                 and build confidence in their academic abilities.
