@@ -59,25 +59,19 @@ export default function AboutUsPage() {
                     <span className={styles.sectionLabel}>Our Story</span>
                     <h2 className="section-title">How Smart Star Began</h2>
                     <div className={styles.storyContent}>
-                        <p>
-                            Smart Star was founded with a simple but powerful belief: that every child
-                            has the potential to achieve great things when given the right support and
-                            encouragement. What started as a small tutoring initiative in Harrow has
-                            grown into a thriving educational institute serving hundreds of students
-                            from diverse backgrounds.
-                        </p>
-                        <p>
-                            Over the years, we have helped countless students achieve outstanding results
-                            in their exams, gain admission to top schools, and develop the confidence and
-                            skills they need to succeed in life. Our dedicated team of experienced educators
-                            continues to innovate and adapt, ensuring that every student receives the
-                            personalised attention they deserve.
-                        </p>
-                        <p>
-                            Today, Smart Star stands as a beacon of academic excellence in the community,
-                            driven by our unwavering commitment to quality education and our passion for
-                            making a difference in young lives.
-                        </p>
+                            <p>
+                                Smart Star is an exciting educational competition designed to
+                                inspire and motivate young learners aged 6–11. The competition
+                                encourages children to challenge themselves, explore their talents,
+                                and build confidence in their academic abilities.
+                            </p>
+
+                            <p>
+                                We believe every child has the potential to shine. Through engaging
+                                competitions and meaningful recognition, Smart Star helps students
+                                strengthen their Maths and English skills while developing a love
+                                for learning from an early age.
+                            </p>
                     </div>
                 </section>
             </div>
