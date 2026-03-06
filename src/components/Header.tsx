@@ -12,6 +12,7 @@ const NAV_ITEMS = [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about-us' },
     { label: 'Exam Results', href: '/exam-results' },
+    { label: 'Exam Center', href: '/exam-center' },
     { label: 'Gallery', href: '/gallery' },
     { label: 'Contact Us', href: '/contact-us' },
 ];
@@ -76,7 +77,7 @@ export default function Header({ isAdmin = false }: { isAdmin?: boolean }) {
                                 />
                                 <div className={styles.logoText}>
                                     <span className={styles.logoTitle}>Smart Star</span>
-                                    <span className={styles.logoSubtitle}>Institute</span>
+                                    <span className={styles.logoSubtitle}>Competition</span>
                                 </div>
                             </Link>
 
