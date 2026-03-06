@@ -12,6 +12,7 @@ const NAV_ITEMS = [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about-us' },
     { label: 'Exam Results', href: '/exam-results' },
+    { label: 'Exam Center', href: '/exam-center' },
     { label: 'Gallery', href: '/gallery' },
     { label: 'Contact Us', href: '/contact-us' },
 ];
