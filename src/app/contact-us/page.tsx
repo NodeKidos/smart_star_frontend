@@ -17,7 +17,7 @@ export default function ContactUsPage() {
     const [formRef, formVisible] = useScrollAnimation<HTMLDivElement>({ threshold: 0.1 });
 
     const INFO_CARDS = [
-        // { icon: MapPin, title: 'Visit Us', text: 'Harrow, London\nUnited Kingdom' },
+        { icon: MapPin, title: 'Visit Us', text: '26-28 London St, Chertsey KT16 8AA, UK' },
         { icon: Mail, title: 'Email Us', text: 'info@smartstar.uk', href: 'mailto:info@smartstar.uk' },
         { icon: Phone, title: 'Call Us', text: '+44 7438 640391', href: 'tel:+447438 640391' },
         { icon: Clock, title: 'Opening Hours', text: 'Mon - Sat: 9:00 AM - 6:00 PM' },

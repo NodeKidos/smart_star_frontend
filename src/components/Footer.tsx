@@ -63,12 +63,15 @@ export default function Footer() {
                     {/* Contact Info */}
                     <div className={styles.footerSection}>
                         <h4>Contact Us</h4>
-                        {/* <div className={styles.contactItem}>
+                        <div className={styles.contactItem}>
                             <MapPin size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
-                                Harrow, London<br />United Kingdom
+                                The Compasses<br />
+                                26-28 London Street<br />
+                                Chertsey<br />
+                                KT16 8AA<br />
                             </span>
-                        </div> */}
+                        </div>
                         <div className={styles.contactItem}>
                             <Mail size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
