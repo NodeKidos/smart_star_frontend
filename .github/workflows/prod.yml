@@ -1,0 +1,57 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+        - prod
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Set short SHA
+          id: vars
+          run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
+
+        - name: Login to GHCR
+          uses: docker/login-action@v3
+          with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+        
+        - name: Debug Server URL
+          run: echo "Stage API URL- ${{ vars.NEXT_PUBLIC_API_URL }}"
+
+        - name: Build and push (staging + sha)
+          uses: docker/build-push-action@v6
+          with:
+            context: .
+            push: true
+            tags: |
+                ghcr.io/nodekidos/smartstar-frontend-app:stage
+                ghcr.io/nodekidos/smartstar-frontend-app:sha-${{ steps.vars.outputs.SHORT_SHA }}
+            build-args: |
+                NEXT_PUBLIC_API_URL=https://${{ vars.NEXT_PUBLIC_API_URL }}
+
+
+        - name: Deploy on VPS via SSH
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{ secrets.VPS_HOST }}
+            port: ${{ secrets.VPS_PORT }}
+            username: ${{ secrets.VPS_USER }}
+            key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+            script: |
+                cd /srv/smartstar/frontend/prod
+                docker compose pull frontend
+                docker compose up -d
+                docker image prune -f

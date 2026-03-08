@@ -1,0 +1,13 @@
+services:
+  frontend:
+    image: ghcr.io/nodekidos/smartstar-frontend-app:stage
+    container_name: smartstar-frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3005:3000"
+    networks:
+      - web-smartstar
+
+networks:
+  web-smartstar:
+    driver: bridge
