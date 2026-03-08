@@ -4,29 +4,45 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://smartstar.uk'),
   title: {
-    default: 'Smart Star Institute | Nurturing Bright Futures',
-    template: '%s | Smart Star Institute',
+    default: 'Smart Star Competitions',
+    template: '%s | Smart Star',
   },
   description:
-    'Smart Star is a premier educational institute in Harrow, London dedicated to nurturing young minds with excellence, creativity, and confidence. Apply now for admissions.',
+    'Smart Star is a premier Maths and English competition in Harrow, London dedicated to challenging young minds. Register now for our upcoming exams.',
   keywords: [
     'Smart Star',
-    'educational institute',
+    'Maths Olympiad',
+    'English Competition',
+    'Exams',
     'Harrow',
     'London',
-    'tutoring',
-    'exam preparation',
-    'student admissions',
+    'student competitions',
     'academic excellence',
   ],
   openGraph: {
-    title: 'Smart Star Institute | Nurturing Bright Futures',
+    title: 'Smart Star | Nurturing Bright Futures',
     description:
-      'Premier educational institute dedicated to nurturing young minds. Expert tutors, proven results, and personalised learning.',
+      'Premier Maths and English competition dedicated to challenging young minds. Join the Olympiad.',
+    url: '/',
     type: 'website',
     locale: 'en_GB',
-    siteName: 'Smart Star Institute',
+    siteName: 'Smart Star',
+    images: [
+      {
+        url: '/logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Smart Star Institute Mascot',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Smart Star | Maths and English Competitions',
+    description: 'Premier Maths and English competition dedicated to challenging young minds.',
+    images: ['/logo.png'],
   },
   robots: {
     index: true,
@@ -49,9 +65,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'EducationalOrganization',
-              name: 'Smart Star Institute',
+              name: 'Smart Star',
               description:
-                'Premier educational institute dedicated to nurturing young minds with excellence.',
+                'Premier Maths and English competition dedicated to challenging young minds.',
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Harrow',

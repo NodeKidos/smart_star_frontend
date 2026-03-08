@@ -8,10 +8,10 @@ import Counter from '@/components/Counter';
 import styles from './Hero.module.css';
 
 const STATS = [
-    { icon: Users, target: 500, suffix: '+', label: 'Students Enrolled' },
-    { icon: TrendingUp, target: 95, suffix: '%', label: 'Pass Rate' },
-    { icon: Clock, target: 10, suffix: '+', label: 'Years Experience' },
-    { icon: Award, target: 50, suffix: '+', label: 'Expert Tutors' },
+    { icon: Users, target: 500, suffix: '+', label: 'Participants' },
+    { icon: TrendingUp, target: 95, suffix: '%', label: 'Success Rate' },
+    { icon: Clock, target: 10, suffix: '+', label: 'Years Running' },
+    { icon: Award, target: 50, suffix: '+', label: 'Award Winners' },
 ];
 
 export default function Hero() {
@@ -37,9 +37,9 @@ export default function Hero() {
                             <span className={styles.heroTitleAccent}>Brightest Potential</span>
                         </h1>
                         <p className={styles.heroDescription}>
-                            Smart Star is a premier educational competition dedicated to nurturing
+                            Smart Star is a premier Maths and English competition dedicated to challenging
                             young minds with excellence, creativity, and confidence.
-                            Give your child the head start they deserve.
+                            Give your child the academic head start they deserve.
                         </p>
                         <div className={styles.heroActions}>
                             <Link href="/apply-now" className={styles.btnPrimary}>

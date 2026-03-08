@@ -3,7 +3,20 @@ import styles from './page.module.css';
 
 export const metadata = {
     title: 'Exam Results',
-    description: 'View the latest exam results from Smart Star Institute. Track student performance and achievements.',
+    description: 'View the latest exam results from Smart Star. Track student performance and achievements.',
+    openGraph: {
+        title: 'Exam Results | Smart Star',
+        description: 'View the latest exam results and track student performance and achievements.',
+        url: '/exam-results',
+        type: 'website',
+        images: ['/logo.png'],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Exam Results | Smart Star',
+        description: 'View the latest exam results and track student performance and achievements.',
+        images: ['/logo.png'],
+    },
 };
 
 export default function ExamResultsPage() {

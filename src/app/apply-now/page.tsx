@@ -42,7 +42,7 @@ const INITIAL_FORM: FormData = {
 
 const SCHOOL_YEARS = [
     'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
-    
+
 ];
 
 export default function ApplyNowPage() {

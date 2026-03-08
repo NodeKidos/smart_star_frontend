@@ -15,7 +15,8 @@ import {
     School,
     Clock,
     UserCheck,
-    AlertCircle
+    AlertCircle,
+    Download
 } from 'lucide-react';
 import AdminLayout from '@/components/AdminLayout';
 import { fetchAllApplications, deleteApplication, Application } from '@/lib/api';
@@ -26,7 +27,6 @@ export default function AdmissionsPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedApp, setSelectedApp] = useState<Application | null>(null);
-    const [deletingId, setDeletingId] = useState<string | null>(null);
 
     useEffect(() => {
         loadApplications();
@@ -56,6 +56,55 @@ export default function AdmissionsPage() {
         }
     };
 
+    const handleExportCSV = () => {
+        if (applications.length === 0) {
+            alert('No data to export.');
+            return;
+        }
+
+        const headers = [
+            'Student First Name', 'Student Surname', 'Parent Full Name', 'DOB',
+            'Gender', 'School Year', 'Email', 'Phone', 'Address', 'City',
+            'Postcode', 'Exam Center', 'Fee', 'Date Applied'
+        ];
+
+        const csvRows = [headers.join(',')];
+
+        applications.forEach(app => {
+            const row = [
+                `"${app.studentFirstName.replace(/"/g, '""')}"`,
+                `"${app.studentSurname.replace(/"/g, '""')}"`,
+                `"${app.parentFullName.replace(/"/g, '""')}"`,
+                new Date(app.studentDob).toLocaleDateString(),
+                `"${app.gender}"`,
+                `"${app.schoolYear}"`,
+                `"${app.email.replace(/"/g, '""')}"`,
+                `"${app.phone}"`,
+                `"${app.address.replace(/"/g, '""')}"`,
+                `"${app.city.replace(/"/g, '""')}"`,
+                `"${app.postcode}"`,
+                `"${app.examCenter}"`,
+                app.fee,
+                new Date(app.createdAt).toISOString()
+            ];
+            csvRows.push(row.join(','));
+        });
+
+        const csvString = csvRows.join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        const dateString = new Date().toISOString().split('T')[0];
+        link.download = `student_admissions_${dateString}.csv`;
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
     const filteredApps = applications.filter(app =>
         `${app.studentFirstName} ${app.studentSurname}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
         app.parentFullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,15 +116,26 @@ export default function AdmissionsPage() {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.title}>Student Admissions</h1>
-                    <div className={styles.searchBar}>
-                        <Search size={18} className={styles.searchIcon} />
-                        <input
-                            type="text"
-                            placeholder="Search by student, parent or email..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className={styles.searchInput}
-                        />
+                    <div className={styles.headerActions}>
+                        <div className={styles.searchBar}>
+                            <Search size={18} className={styles.searchIcon} />
+                            <input
+                                type="text"
+                                placeholder="Search by student, parent or email..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className={styles.searchInput}
+                            />
+                        </div>
+                        <button
+                            className={styles.exportBtn}
+                            onClick={handleExportCSV}
+                            title="Export to CSV"
+                            disabled={applications.length === 0}
+                        >
+                            <Download size={18} />
+                            <span>Export CSV</span>
+                        </button>
                     </div>
                 </div>
 

@@ -31,8 +31,8 @@ export default function Footer() {
                             <span className={styles.footerLogoText}>Smart Star</span>
                         </div>
                         <p>
-                            Empowering young minds with quality education, expert guidance,
-                            and a nurturing learning environment. Every child is a star
+                            Empowering young minds with challenging competitions, expert assessment,
+                            and a motivating environment. Every child is a star
                             waiting to shine.
                         </p>
                     </div>
@@ -54,21 +54,24 @@ export default function Footer() {
                         <h4>Support</h4>
                         <ul className={styles.footerLinks}>
                             <li><Link href="/contact-us">Contact Us</Link></li>
-                            <li><Link href="/apply-now">Admissions</Link></li>
+                            <li><Link href="/apply-now">Register</Link></li>
                             <li><Link href="/">FAQ</Link></li>
-                            <li><Link href="/">Privacy Policy</Link></li>
+                            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                         </ul>
                     </div>
 
                     {/* Contact Info */}
                     <div className={styles.footerSection}>
                         <h4>Contact Us</h4>
-                        {/* <div className={styles.contactItem}>
+                        <div className={styles.contactItem}>
                             <MapPin size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>
-                                Harrow, London<br />United Kingdom
+                                The Compasses<br />
+                                26-28 London Street<br />
+                                Chertsey<br />
+                                KT16 8AA<br />
                             </span>
-                        </div> */}
+                        </div>
                         <div className={styles.contactItem}>
                             <Mail size={16} className={styles.contactIcon} />
                             <span className={styles.contactText}>

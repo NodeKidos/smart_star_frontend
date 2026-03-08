@@ -8,12 +8,12 @@ const MISSIONS = [
     {
         icon: Target,
         title: 'Our Mission',
-        description: 'To provide outstanding educational support that empowers every student to achieve their academic potential and develop confidence for lifelong learning.',
+        description: 'To provide an outstanding competitive platform that empowers every student to test their academic potential and develop confidence for lifelong learning.',
     },
     {
         icon: Eye,
         title: 'Our Vision',
-        description: "To be the leading educational institute recognised for transforming students' lives through innovative teaching, personalised care, and a commitment to excellence.",
+        description: "To be the leading maths and english competition recognised for transforming students' lives through challenging exams and a commitment to academic excellence.",
     },
     {
         icon: Gem,
@@ -59,19 +59,19 @@ export default function AboutUsPage() {
                     <span className={styles.sectionLabel}>Our Story</span>
                     <h2 className="section-title">How Smart Star Began</h2>
                     <div className={styles.storyContent}>
-                            <p>
-                                Smart Star is an exciting educational competition designed to
-                                inspire and motivate young learners aged 6–11. The competition
-                                encourages children to challenge themselves, explore their talents,
-                                and build confidence in their academic abilities.
-                            </p>
+                        <p>
+                            Smart Star is an exciting educational competition designed to
+                            inspire and motivate young learners aged 6–11. The competition
+                            encourages children to challenge themselves, explore their talents,
+                            and build confidence in their academic abilities.
+                        </p>
 
-                            <p>
-                                We believe every child has the potential to shine. Through engaging
-                                competitions and meaningful recognition, Smart Star helps students
-                                strengthen their Maths and English skills while developing a love
-                                for learning from an early age.
-                            </p>
+                        <p>
+                            We believe every child has the potential to shine. Through engaging
+                            competitions and meaningful recognition, Smart Star helps students
+                            strengthen their Maths and English skills while developing a love
+                            for learning from an early age.
+                        </p>
                     </div>
                 </section>
             </div>

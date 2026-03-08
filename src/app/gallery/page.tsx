@@ -39,7 +39,7 @@ export default function GalleryPage() {
     const displayItems = filteredItems.flatMap(item => {
         const urls = (item.imageUrls && Array.isArray(item.imageUrls))
             ? item.imageUrls.filter(u => u && u.trim() !== '')
-            : ((item as any).imageUrl ? [(item as any).imageUrl] : []);
+            : (('imageUrl' in item && (item as GalleryItem & { imageUrl?: string }).imageUrl) ? [(item as GalleryItem & { imageUrl?: string }).imageUrl as string] : []);
 
         if (urls.length === 0) return [];
 
@@ -94,6 +94,7 @@ export default function GalleryPage() {
                                     style={{ animationDelay: `${index * 60}ms` }}
                                 >
                                     <div className={styles.imageArea}>
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={getImageUrl(item.displayUrl)} alt={item.title} loading="lazy" />
                                         <div className={styles.overlay}>
                                             <div className={styles.overlayContent}>
