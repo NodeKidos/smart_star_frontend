@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { User, ShieldCheck, Trash2, Plus, ArrowRight } from 'lucide-react';
+import { User, ShieldCheck, Trash2, Plus } from 'lucide-react';
 import { fetchAllUsers, createUser, deleteUser, User as UserType } from '@/lib/api';
 import AdminLayout from '@/components/AdminLayout';
 import styles from './page.module.css';
@@ -13,15 +13,16 @@ export default function AdminUsersPage() {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
 
-    useEffect(() => {
-        loadUsers();
-    }, []);
-
     const loadUsers = async () => {
         const data = await fetchAllUsers();
         setUsers(data);
         setLoading(false);
     };
+
+    useEffect(() => {
+        // eslint-disable-next-line
+        loadUsers();
+    }, []);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,7 +33,7 @@ export default function AdminUsersPage() {
             setMessage('User created successfully!');
             loadUsers();
             setTimeout(() => setMessage(''), 3000);
-        } catch (err) {
+        } catch {
             setMessage('Failed to create user');
         }
     };

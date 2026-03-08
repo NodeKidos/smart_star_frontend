@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ImageIcon, Plus, Trash2, Edit2, X, Upload, Calendar as CalendarIcon } from 'lucide-react';
+import { ImageIcon, Plus, Trash2, Edit2, X, Upload } from 'lucide-react';
 import { fetchGallery, createGalleryItem, updateGalleryItem, deleteGalleryItem, GalleryItem, API_BASE_URL } from '@/lib/api';
 import AdminLayout from '@/components/AdminLayout';
 import styles from './page.module.css';
@@ -38,8 +38,8 @@ export default function AdminGalleryPage() {
             return item.imageUrls.filter(u => u && u.trim() !== '');
         }
         // Fallback for legacy items with single imageUrl
-        if ((item as any).imageUrl) {
-            return [(item as any).imageUrl];
+        if ('imageUrl' in item && (item as GalleryItem & { imageUrl?: string }).imageUrl) {
+            return [(item as GalleryItem & { imageUrl?: string }).imageUrl as string];
         }
         return [];
     };
@@ -122,7 +122,7 @@ export default function AdminGalleryPage() {
             }
             resetForm();
             loadGallery();
-        } catch (err) {
+        } catch {
             alert('Operation failed');
         } finally {
             setUploading(false);
@@ -223,6 +223,7 @@ export default function AdminGalleryPage() {
                                     <div className={styles.editImageGrid}>
                                         {editingImages.map((url, i) => (
                                             <div key={i} className={styles.editImageThumb}>
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                                 <img src={getImageUrl(url)} alt={`Image ${i + 1}`} />
                                                 <button
                                                     type="button"
@@ -290,6 +291,7 @@ export default function AdminGalleryPage() {
                                 <div key={item.id} className={styles.itemCard}>
                                     <div className={styles.imgWrapper}>
                                         {coverUrl ? (
+                                            /* eslint-disable-next-line @next/next/no-img-element */
                                             <img src={getImageUrl(coverUrl)} alt={item.title} />
                                         ) : (
                                             <div className={styles.noImagePlaceholder}>

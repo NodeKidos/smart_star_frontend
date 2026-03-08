@@ -52,9 +52,9 @@ export default function PrivacyPolicyPage() {
 
                         <h2>4. Cookies</h2>
                         <p>
-                            Our website uses "cookies" to enhance your experience. Cookies are small files that a site
-                            or its service provider transfers to your computer's hard drive through your Web browser
-                            (if you allow) that enables the site's or service provider's systems to recognize your
+                            Our website uses &quot;cookies&quot; to enhance your experience. Cookies are small files that a site
+                            or its service provider transfers to your computer&apos;s hard drive through your Web browser
+                            (if you allow) that enables the site&apos;s or service provider&apos;s systems to recognize your
                             browser and capture and remember certain information. You can choose to disable cookies
                             through your browser settings.
                         </p>
