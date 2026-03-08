@@ -31,8 +31,8 @@ export default function Footer() {
                             <span className={styles.footerLogoText}>Smart Star</span>
                         </div>
                         <p>
-                            Empowering young minds with quality education, expert guidance,
-                            and a nurturing learning environment. Every child is a star
+                            Empowering young minds with challenging competitions, expert assessment,
+                            and a motivating environment. Every child is a star
                             waiting to shine.
                         </p>
                     </div>
@@ -54,7 +54,7 @@ export default function Footer() {
                         <h4>Support</h4>
                         <ul className={styles.footerLinks}>
                             <li><Link href="/contact-us">Contact Us</Link></li>
-                            <li><Link href="/apply-now">Admissions</Link></li>
+                            <li><Link href="/apply-now">Register</Link></li>
                             <li><Link href="/">FAQ</Link></li>
                             <li><Link href="/">Privacy Policy</Link></li>
                         </ul>
