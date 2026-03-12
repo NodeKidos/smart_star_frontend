@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { MapPin, Mail, Phone, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { FacebookIcon, InstagramIcon } from '@/components/BrandIcons';
 import { useScrollAnimation, useStaggeredAnimation } from '@/lib/useScrollAnimation';
 import { sendContactMessage } from '@/lib/api';
 import styles from './page.module.css';
@@ -90,6 +91,18 @@ export default function ContactUsPage() {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+
+                        <div className={styles.socialFollow}>
+                            <h3>Follow Us</h3>
+                            <div className={styles.socialIcons}>
+                                <a href="https://www.facebook.com/smartstarcompetition" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Facebook">
+                                    <FacebookIcon size={24} />
+                                </a>
+                                <a href="https://www.instagram.com/smartstarcompetition/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
+                                    <InstagramIcon size={24} />
+                                </a>
+                            </div>
                         </div>
                     </div>
 
