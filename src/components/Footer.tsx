@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MapPin, Mail, Phone, Clock } from 'lucide-react';
+import { FacebookIcon, InstagramIcon } from './BrandIcons';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -35,6 +36,14 @@ export default function Footer() {
                             and a motivating environment. Every child is a star
                             waiting to shine.
                         </p>
+                        <div className={styles.socialLinks}>
+                            <a href="https://www.facebook.com/smartstarcompetition" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Facebook">
+                                <FacebookIcon size={20} />
+                            </a>
+                            <a href="https://www.instagram.com/smartstarcompetition/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="Instagram">
+                                <InstagramIcon size={20} />
+                            </a>
+                        </div>
                     </div>
 
                     {/* Quick Links */}

@@ -64,6 +64,33 @@
     font-size: 0.9rem;
 }
 
+.socialLinks {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.socialLink:hover {
+    background: #F5A623;
+    color: #FFFFFF;
+    border-color: #F5A623;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(245, 166, 35, 0.3);
+}
+
 /* ── Sections ── */
 .footerSection h4 {
     font-family: var(--font-heading);
