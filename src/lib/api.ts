@@ -15,6 +15,7 @@ export interface Application {
     postcode: string;
     fee: number;
     examCenter: string;
+    paymentReference: string;
     createdAt: string;
 }
 

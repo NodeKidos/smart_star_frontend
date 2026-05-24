@@ -225,6 +225,64 @@
     margin-bottom: 1.5rem;
 }
 
+/* ── Bank Details ── */
+.bankDetailsSection {
+    margin-bottom: 2.5rem;
+}
+
+.bankDetailsCard {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.06), rgba(13, 110, 253, 0.02));
+    border: 2px solid rgba(13, 110, 253, 0.15);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.bankDetailsTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1B2A4A;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bankDetailsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.bankDetailItem {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bankDetailLabel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bankDetailValue {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1B2A4A;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.3px;
+}
+
+/* ── Form Hint ── */
+.formHint {
+    font-size: 0.78rem;
+    color: #64748b;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
     .formCard {
@@ -232,6 +290,10 @@
     }
 
     .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .bankDetailsGrid {
         grid-template-columns: 1fr;
     }
 
