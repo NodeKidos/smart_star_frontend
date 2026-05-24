@@ -19,6 +19,7 @@ interface FormData {
     city: string;
     postcode: string;
     examCenter: string;
+    paymentReference: string;
 }
 
 interface FormErrors {
@@ -37,7 +38,8 @@ const INITIAL_FORM: FormData = {
     address: '',
     city: '',
     postcode: '',
-    examCenter: 'Harrow',
+    examCenter: 'Hayes',
+    paymentReference: '',
 };
 
 const SCHOOL_YEARS = [
@@ -69,6 +71,7 @@ export default function ApplyNowPage() {
         if (!formData.address.trim()) errs.address = 'Address is required';
         if (!formData.city.trim()) errs.city = 'City is required';
         if (!formData.postcode.trim()) errs.postcode = 'Postcode is required';
+        if (!formData.paymentReference.trim()) errs.paymentReference = 'Payment reference is required';
         return errs;
     };
 
@@ -264,9 +267,10 @@ export default function ApplyNowPage() {
                         </h3>
                         <div className={styles.formGrid}>
                             <div className={styles.formGroup}>
-                                <label className={styles.formLabel} htmlFor="examCenter">Exam Centre</label>
+                                <label className={styles.formLabel} htmlFor="examCenter">Exam Centre <span className={styles.formRequired}>*</span></label>
                                 <select id="examCenter" name="examCenter" className={styles.formSelect} value={formData.examCenter} onChange={handleChange}>
-                                    <option value="Harrow">Harrow</option>
+                                    <option value="Hayes">Hayes</option>
+                                    <option value="Harrow" disabled>Harrow (Currently Unavailable)</option>
                                 </select>
                             </div>
 
@@ -276,6 +280,51 @@ export default function ApplyNowPage() {
                                     <span className={styles.feeLabel}>Amount</span>
                                     <span className={styles.feeAmount}>£15.00</span>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Bank Details & Payment Reference */}
+                        <div className={styles.bankDetailsSection}>
+                            <div className={styles.bankDetailsCard}>
+                                <h4 className={styles.bankDetailsTitle}>Bank Details for Payment</h4>
+                                <div className={styles.bankDetailsGrid}>
+                                    <div className={styles.bankDetailItem}>
+                                        <span className={styles.bankDetailLabel}>Account Name</span>
+                                        <span className={styles.bankDetailValue}>Smart Star</span>
+                                    </div>
+                                    <div className={styles.bankDetailItem}>
+                                        <span className={styles.bankDetailLabel}>Bank Name</span>
+                                        <span className={styles.bankDetailValue}>Barclays</span>
+                                    </div>
+                                    <div className={styles.bankDetailItem}>
+                                        <span className={styles.bankDetailLabel}>Sort Code</span>
+                                        <span className={styles.bankDetailValue}>20-92-63</span>
+                                    </div>
+                                    <div className={styles.bankDetailItem}>
+                                        <span className={styles.bankDetailLabel}>Account Number</span>
+                                        <span className={styles.bankDetailValue}>23405680</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Payment Reference */}
+                        <div className={styles.formGrid}>
+                            <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
+                                <label className={styles.formLabel} htmlFor="paymentReference">
+                                    Payment Reference <span className={styles.formRequired}>*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="paymentReference"
+                                    name="paymentReference"
+                                    className={`${styles.formInput} ${errors.paymentReference ? styles.formInputError : ''}`}
+                                    placeholder="e.g., Child Name - Year Group"
+                                    value={formData.paymentReference}
+                                    onChange={handleChange}
+                                />
+                                {errors.paymentReference && <span className={styles.formError}>{errors.paymentReference}</span>}
+                                <span className={styles.formHint}>Use format: Child Name - Year Group (e.g., John Smith - Year 3)</span>
                             </div>
                         </div>
 
