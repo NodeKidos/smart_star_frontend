@@ -37,6 +37,7 @@ export interface GalleryItem {
     title: string;
     imageUrls: string[];
     category: string;
+    examCenter?: string;
     eventDate?: string;
     createdAt: string;
 }

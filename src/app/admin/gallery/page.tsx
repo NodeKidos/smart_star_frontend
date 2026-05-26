@@ -1,10 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ImageIcon, Plus, Trash2, Edit2, X, Upload } from 'lucide-react';
+import { ImageIcon, Plus, Trash2, Edit2, X, Upload, Video } from 'lucide-react';
 import { fetchGallery, createGalleryItem, updateGalleryItem, deleteGalleryItem, GalleryItem, API_BASE_URL } from '@/lib/api';
 import AdminLayout from '@/components/AdminLayout';
 import styles from './page.module.css';
+
+const isVideoUrl = (url: string | undefined): boolean => {
+    if (!url) return false;
+    const cleanUrl = url.split('?')[0].split('#')[0].toLowerCase();
+    const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi', '.mkv', '.qt'];
+    return videoExtensions.some(ext => cleanUrl.endsWith(ext));
+};
 
 export default function AdminGalleryPage() {
     const [items, setItems] = useState<GalleryItem[]>([]);
@@ -15,6 +22,7 @@ export default function AdminGalleryPage() {
     // Form state
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('Campus');
+    const [examCenter, setExamCenter] = useState('Hayes');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState(false);
     const [eventDate, setEventDate] = useState(new Date().toISOString().split('T')[0]);
@@ -57,6 +65,7 @@ export default function AdminGalleryPage() {
     const resetForm = () => {
         setTitle('');
         setCategory('Campus');
+        setExamCenter('Hayes');
         setEventDate(new Date().toISOString().split('T')[0]);
         setSelectedFiles([]);
         setIsAdding(false);
@@ -104,6 +113,7 @@ export default function AdminGalleryPage() {
                 formData.append('category', category);
                 formData.append('eventDate', eventDate);
                 formData.append('imageUrls', JSON.stringify(editingImages));
+                formData.append('examCenter', category === 'Exams' ? examCenter : '');
                 selectedFiles.forEach(file => {
                     formData.append('files', file);
                 });
@@ -114,6 +124,7 @@ export default function AdminGalleryPage() {
                 formData.append('title', title);
                 formData.append('category', category);
                 formData.append('date', eventDate);
+                formData.append('examCenter', category === 'Exams' ? examCenter : '');
                 selectedFiles.forEach(file => {
                     formData.append('files', file);
                 });
@@ -133,6 +144,7 @@ export default function AdminGalleryPage() {
         setEditingId(item.id);
         setTitle(item.title);
         setCategory(item.category);
+        setExamCenter(item.examCenter || 'Hayes');
         setEditingImages(getItemImages(item));
         if (item.eventDate) {
             setEventDate(item.eventDate.split('T')[0]);
@@ -160,7 +172,7 @@ export default function AdminGalleryPage() {
                         </div>
                         <div>
                             <h1>Gallery Management</h1>
-                            <p>Upload and manage images stored on the server</p>
+                            <p>Upload and manage photos and videos stored on the server</p>
                         </div>
                     </div>
                     <button
@@ -170,13 +182,13 @@ export default function AdminGalleryPage() {
                             else setIsAdding(true);
                         }}
                     >
-                        {isAdding ? <><X size={18} /> Cancel</> : <><Plus size={18} /> Add Images</>}
+                        {isAdding ? <><X size={18} /> Cancel</> : <><Plus size={18} /> Add Media</>}
                     </button>
                 </div>
 
                 {isAdding && (
                     <div className={styles.addForm}>
-                        <h2>{editingId ? 'Edit Album' : 'Upload New Images'}</h2>
+                        <h2>{editingId ? 'Edit Album' : 'Upload New Photos & Videos'}</h2>
                         <form onSubmit={handleSubmit}>
                             <div className={styles.formGrid}>
                                 <div className={styles.inputGroup}>
@@ -209,8 +221,23 @@ export default function AdminGalleryPage() {
                                         <option value="Events">Events</option>
                                         <option value="Students">Students</option>
                                         <option value="Awards">Awards</option>
+                                        <option value="Exams">Exams</option>
+                                        <option value="Exam Center">Exam Center</option>
                                     </select>
                                 </div>
+
+                                {category === 'Exams' && (
+                                    <div className={styles.inputGroup}>
+                                        <label>Exam Center</label>
+                                        <select
+                                            value={examCenter}
+                                            onChange={(e) => setExamCenter(e.target.value)}
+                                        >
+                                            <option value="Hayes">Hayes</option>
+                                            <option value="Harrow">Harrow</option>
+                                        </select>
+                                    </div>
+                                )}
                                 <button type="submit" className={styles.submitBtn} disabled={uploading}>
                                     {uploading ? 'Processing...' : (editingId ? 'Save Changes' : 'Upload Batch')}
                                 </button>
@@ -219,17 +246,21 @@ export default function AdminGalleryPage() {
                             {/* Show current images when editing - allow removal */}
                             {editingId && editingImages.length > 0 && (
                                 <div className={styles.editImagesSection}>
-                                    <label className={styles.fieldLabel}>Current Images (click × to remove)</label>
+                                    <label className={styles.fieldLabel}>Current Media (click × to remove)</label>
                                     <div className={styles.editImageGrid}>
                                         {editingImages.map((url, i) => (
                                             <div key={i} className={styles.editImageThumb}>
-                                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img src={getImageUrl(url)} alt={`Image ${i + 1}`} />
+                                                {isVideoUrl(url) ? (
+                                                    <video src={getImageUrl(url)} muted loop playsInline autoPlay style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                                ) : (
+                                                    /* eslint-disable-next-line @next/next/no-img-element */
+                                                    <img src={getImageUrl(url)} alt={`Media ${i + 1}`} />
+                                                )}
                                                 <button
                                                     type="button"
                                                     className={styles.removeImageBtn}
                                                     onClick={() => handleRemoveEditImage(url)}
-                                                    title="Remove this image"
+                                                    title="Remove this media"
                                                 >
                                                     <X size={14} />
                                                 </button>
@@ -241,7 +272,7 @@ export default function AdminGalleryPage() {
 
                             {(
                                 <div className={styles.uploadSection}>
-                                    <label className={styles.fieldLabel}>{editingId ? 'Add More Images' : 'Select or Drag Images'}</label>
+                                    <label className={styles.fieldLabel}>{editingId ? 'Add More Photos/Videos' : 'Select or Drag Photos/Videos'}</label>
                                     <div
                                         className={`${styles.dragDropZone} ${dragActive ? styles.dragActive : ''}`}
                                         onDragEnter={handleDrag}
@@ -251,11 +282,11 @@ export default function AdminGalleryPage() {
                                         onClick={() => document.getElementById('file-upload')?.click()}
                                     >
                                         <Upload className={styles.dropIcon} size={40} />
-                                        <p>Drag & drop images here or <strong>browse computer</strong></p>
+                                        <p>Drag & drop photos or videos here or <strong>browse computer</strong></p>
                                         <input
                                             id="file-upload"
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/*,video/*"
                                             multiple
                                             onChange={handleFileChange}
                                             style={{ display: 'none' }}
@@ -265,7 +296,7 @@ export default function AdminGalleryPage() {
                                             <div className={styles.fileList}>
                                                 {selectedFiles.map((f, i) => (
                                                     <span key={i} className={styles.fileBadge}>
-                                                        <ImageIcon size={12} /> {f.name}
+                                                        {f.type.startsWith('video/') ? <Video size={12} /> : <ImageIcon size={12} />} {f.name}
                                                     </span>
                                                 ))}
                                             </div>
@@ -281,26 +312,33 @@ export default function AdminGalleryPage() {
                     {items.length === 0 ? (
                         <div className={styles.empty}>
                             <ImageIcon size={48} />
-                            <p>No images in gallery yet. Click &quot;Add Images&quot; to upload your first album.</p>
+                            <p>No media in gallery yet. Click &quot;Add Media&quot; to upload your first album.</p>
                         </div>
                     ) : (
                         items.map((item) => {
                             const images = getItemImages(item);
                             const coverUrl = images.length > 0 ? images[0] : '';
+                            const containsVideo = images.some(url => isVideoUrl(url));
                             return (
                                 <div key={item.id} className={styles.itemCard}>
                                     <div className={styles.imgWrapper}>
                                         {coverUrl ? (
-                                            /* eslint-disable-next-line @next/next/no-img-element */
-                                            <img src={getImageUrl(coverUrl)} alt={item.title} />
+                                            isVideoUrl(coverUrl) ? (
+                                                <video src={getImageUrl(coverUrl)} muted loop playsInline autoPlay style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            ) : (
+                                                /* eslint-disable-next-line @next/next/no-img-element */
+                                                <img src={getImageUrl(coverUrl)} alt={item.title} />
+                                            )
                                         ) : (
                                             <div className={styles.noImagePlaceholder}>
                                                 <ImageIcon size={40} />
-                                                <span>No images</span>
+                                                <span>No media</span>
                                             </div>
                                         )}
                                         <div className={styles.categoryBadge}>{item.category}</div>
-                                        <div className={styles.countBadge}>{images.length} {images.length === 1 ? 'Photo' : 'Photos'}</div>
+                                        <div className={styles.countBadge}>
+                                            {images.length} {containsVideo ? (images.length === 1 ? 'Video' : 'Media Items') : (images.length === 1 ? 'Photo' : 'Photos')}
+                                        </div>
                                     </div>
                                     <div className={styles.cardFooter}>
                                         <div className={styles.itemInfo}>
