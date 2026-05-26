@@ -227,3 +227,296 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Grid Video Styles */
+.card {
+    cursor: pointer;
+}
+
+.videoWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.gridVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.videoBadge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(27, 42, 74, 0.85);
+    backdrop-filter: blur(4px);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+/* Lightbox Modal */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 10001;
+}
+
+.closeBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.navBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 23, 42, 0.55); /* Dark high-contrast background */
+    backdrop-filter: blur(4px);
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    user-select: none;
+    z-index: 10000;
+}
+
+.prevBtn {
+    left: 1rem;
+}
+
+.nextBtn {
+    right: 1rem;
+}
+
+.navBtn:hover {
+    background: rgba(15, 23, 42, 0.8);
+    transform: translateY(-50%) scale(1.05);
+    color: #F5A623;
+}
+
+.lightboxContent {
+    flex: 1;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.mediaContainer {
+    position: relative; /* CRITICAL: Establish relative positioning context for absolutely positioned nav buttons */
+    width: 100%;
+    max-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+.lightboxImg,
+.lightboxVideo {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.lightboxMeta {
+    width: 100%;
+    margin-top: 1.5rem;
+    color: white;
+    text-align: center;
+}
+
+.lightboxText h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+    color: #ffffff !important; /* Explicitly enforce white color to override globals.css */
+}
+
+.lightboxInfo {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+}
+
+.lightboxCategory,
+.lightboxDate {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width: 768px) {
+    .lightbox {
+        padding: 0.75rem;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .lightboxContent {
+        height: auto;
+        margin: 1.5rem 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .mediaContainer {
+        max-height: 50vh;
+    }
+
+    .lightboxImg,
+    .lightboxVideo {
+        max-height: 50vh;
+        width: 100%;
+    }
+
+    .lightboxMeta {
+        margin-top: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .lightboxText h2 {
+        font-size: 1.05rem;
+        line-height: 1.4;
+        margin-bottom: 0.4rem;
+        color: #ffffff !important;
+    }
+
+    .lightboxInfo {
+        gap: 0.75rem;
+        font-size: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .navBtn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .prevBtn {
+        left: 0.5rem;
+    }
+
+    .nextBtn {
+        right: 0.5rem;
+    }
+}
+
+/* Category Grouping Styles */
+.categorySection {
+    margin-bottom: 5rem;
+}
+
+.categoryHeaderWrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.categoryHeader {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1B2A4A;
+    letter-spacing: -0.5px;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.categoryLine {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #e2e8f0 0%, rgba(226, 232, 240, 0) 100%);
+}
+
+.metaWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.mediaCountBadge {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.lightboxCount {
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.noImagePlaceholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #94a3b8;
+    gap: 8px;
+}
