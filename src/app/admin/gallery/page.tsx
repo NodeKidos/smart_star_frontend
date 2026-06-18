@@ -22,7 +22,7 @@ export default function AdminGalleryPage() {
     // Form state
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('Campus');
-    const [examCenter, setExamCenter] = useState('Hayes');
+    const [examCenter, setExamCenter] = useState('Alperton');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState(false);
     const [eventDate, setEventDate] = useState(new Date().toISOString().split('T')[0]);
@@ -65,7 +65,7 @@ export default function AdminGalleryPage() {
     const resetForm = () => {
         setTitle('');
         setCategory('Campus');
-        setExamCenter('Hayes');
+        setExamCenter('Alperton');
         setEventDate(new Date().toISOString().split('T')[0]);
         setSelectedFiles([]);
         setIsAdding(false);
@@ -144,7 +144,7 @@ export default function AdminGalleryPage() {
         setEditingId(item.id);
         setTitle(item.title);
         setCategory(item.category);
-        setExamCenter(item.examCenter || 'Hayes');
+        setExamCenter(item.examCenter || 'Alperton');
         setEditingImages(getItemImages(item));
         if (item.eventDate) {
             setEventDate(item.eventDate.split('T')[0]);
@@ -233,6 +233,7 @@ export default function AdminGalleryPage() {
                                             value={examCenter}
                                             onChange={(e) => setExamCenter(e.target.value)}
                                         >
+                                            <option value="Alperton">Alperton</option>
                                             <option value="Hayes">Hayes</option>
                                             <option value="Harrow">Harrow</option>
                                         </select>
