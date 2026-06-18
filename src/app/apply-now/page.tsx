@@ -38,7 +38,7 @@ const INITIAL_FORM: FormData = {
     address: '',
     city: '',
     postcode: '',
-    examCenter: 'Hayes',
+    examCenter: 'Alperton',
     paymentReference: '',
 };
 
@@ -269,7 +269,8 @@ export default function ApplyNowPage() {
                             <div className={styles.formGroup}>
                                 <label className={styles.formLabel} htmlFor="examCenter">Exam Centre <span className={styles.formRequired}>*</span></label>
                                 <select id="examCenter" name="examCenter" className={styles.formSelect} value={formData.examCenter} onChange={handleChange}>
-                                    <option value="Hayes">Hayes</option>
+                                    <option value="Alperton">Alperton</option>
+                                    <option value="Hayes" disabled>Hayes (Currently Unavailable)</option>
                                     <option value="Harrow" disabled>Harrow (Currently Unavailable)</option>
                                 </select>
                             </div>
